@@ -7,14 +7,8 @@ public class Main {
         double[][] matrix = Input_Matrix.MatrixFileInput();
         // output the matrix
         Matrix.outputMatrix(matrix);
-        // gauss
-        Matrix.Gauss(matrix);
-        // output the matrix
-        System.out.println("Hasil eliminasi Gauss:");
-        Matrix.outputMatrix(matrix);
-
-        // calculate determinant
+        // det by kofaktor
         double det = Matrix.DetByGauss(matrix);
-        System.out.println("Determinan matriks: " + det);
+        System.out.println("Determinan = " + det);
     }
 }
