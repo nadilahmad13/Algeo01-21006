@@ -1,5 +1,4 @@
 package Matrix;
-import java.util.*;
 
 public class Matrix {
     public static void outputMatrix(double[][] matrix) {
@@ -20,6 +19,7 @@ public class Matrix {
             System.out.println("Matriks bukan persegi");
             return 0;
         }
+
         int n = matrix.length;
         int det = 1;
         int co = 1;
@@ -62,48 +62,76 @@ public class Matrix {
     }
 
     public static double DetByGauss(double[][] matrix){
-        // call copy function
-        double[][] copy = CopyMatrix(matrix);
-        // call gauss function
-        Gauss(copy);
-        // calculate determinant
-        double det = 1;
-        for (int i = 0; i < copy.length; i++){
-            det *= copy[i][i];
+        // Copy the matrix
+        double[][] GaussCopy = CopyMatrix(matrix);
+
+        // Inisiasi Variabel
+        int i,j,k,n,x;
+        double val1, val2, val3, temp, determinan, sum;
+        n = GaussCopy.length;
+        determinan = 1;
+        sum = 1;
+
+        // Eliminasi Gauss
+        for (i = 0 ; i < n ; i++){
+            x = i;
+
+            // Mencari Indeks Tidak 0 Pertama
+            while (x < n && GaussCopy[x][i] == 0){
+                x++;
+            }
+
+            if (x == n){ // Jika tidak ada
+                return 0;
+            }
+
+            if (x != i){ // Jika tidak sama dengan indeks sekarang
+                for (j = 0 ; j < n ; j++){ // Tukar baris
+                    temp = GaussCopy[i][j];
+                    GaussCopy[i][j] = GaussCopy[x][j];
+                    GaussCopy[x][j] = temp;
+                }
+                determinan *= -1; // Kali determinan dengan -1
+            }
+            
+            // Operasi Baris Elementer
+            for (j = i + 1 ; j < n ; j++){
+                val1 = GaussCopy[i][i];
+                val2 = GaussCopy[j][i];
+
+                for (k = 0 ; k < n ; k++){
+                    val3 = (val1 * GaussCopy[j][k]) - (val2 * GaussCopy[i][k]);
+                    GaussCopy[j][k] = val3;
+                }
+                
+                sum *= val1;
+            }
         }
-        return det;
+
+        // Menghitung Determinan
+        for (i = 0 ; i < n ; i++){
+            determinan *= GaussCopy[i][i];
+        }
+
+        return determinan/sum;
     }
 
-    public static void Gauss(double[][] matrix){
-        // eliminasi gauss
-        int m = matrix.length;
-        int n = matrix[0].length;
-        for (int i = 0; i < m; i++){
-            // cari pivot
-            int pivot = i;
-            for (int j = i + 1; j < m; j++){
-                if (Math.abs(matrix[j][i]) > Math.abs(matrix[pivot][i])){
-                    pivot = j;
-                }
-            }
-            // swap baris
-            if (pivot != i){
-                double[] temp = matrix[i];
-                matrix[i] = matrix[pivot];
-                matrix[pivot] = temp;
-            }
-            // eliminasi
-            for (int j = i + 1; j < m; j++){
-                double factor = matrix[j][i] / matrix[i][i];
-                for (int k = i; k < n; k++){
-                    matrix[j][k] -= factor * matrix[i][k];
-                }
+    public static double[][] TransposeMatrix(double[][] matrix){
+        // Copy the matrix
+        double[][] TransposeCopy = CopyMatrix(matrix);
+        
+        int n = TransposeCopy.length;
+        int m = TransposeCopy[0].length;
+        double[][] transpose = new double[m][n];
+        for (int i = 0 ; i < n ; i++){
+            for (int j = 0 ; j < m ; j++){
+                transpose[j][i] = TransposeCopy[i][j];
             }
         }
+        return transpose;
     }
 
     public static double[][] CopyMatrix(double[][] matrix){
-        // copy matrix
         double[][] copy = new double[matrix.length][matrix[0].length];
         for (int i = 0; i < matrix.length; i++){
             for (int j = 0; j < matrix[i].length; j++){

@@ -10,5 +10,9 @@ public class Main {
         // det by kofaktor
         double det = Matrix.DetByGauss(matrix);
         System.out.println("Determinan = " + det);
+        // transpose
+        System.out.println("Transpose :");
+        double[][] transpose = Matrix.TransposeMatrix(matrix);
+        Matrix.outputMatrix(transpose);
     }
 }
