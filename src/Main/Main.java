@@ -1,11 +1,10 @@
 package Main;
-import Matrix.Matrix;
-import java.lang.Math;
+import Matrix.*;
 
 public class Main {
     public static void main(String[] args) {
         // read a matrix
-        double[][] matrix = Matrix.InputMatrix();
+        double[][] matrix = Input_Matrix.MatrixFileInput();
         // output the matrix
         Matrix.outputMatrix(matrix);
         // gauss
