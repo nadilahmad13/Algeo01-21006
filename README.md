@@ -10,7 +10,7 @@
 ## Cara Run Program
 1. Di folder src :
 
-`javac -d ..\bin Matrix/*.java Main/*.java`
+`javac -d ..\bin Matrix/*.java Functions/*.java Main/*.java`
 
 2. Di folder bin :
 
