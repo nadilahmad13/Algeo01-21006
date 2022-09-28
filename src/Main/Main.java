@@ -3,6 +3,9 @@ import Matrix.*;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println(
+            "Menu"
+        );
         // read a matrix
         double[][] matrix = Input_Matrix.MatrixFileInput();
         // output the matrix
