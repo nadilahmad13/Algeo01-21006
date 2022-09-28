@@ -112,4 +112,59 @@ public class Matrix {
         }
         return copy;
     }
+
+    public static void tukarKolom (double matrix[][], int baris, int i, int j) {
+        int k;
+
+        for (k = 0; k < baris; k++) {
+            double temp = matrix[k][i];
+            matrix[k][i] = matrix[k][j];
+            matrix[k][j] = temp;
+        }
+    }	
+
+    public static double[][] hapusKolomAkhir (double matrix[][]) {
+        int i, j;
+        int baris = matrix.length;
+        int kolom = matrix[0].length;
+        double [][] matrixBaru = new double[baris][kolom-1];
+    
+        for (i = 0; i < baris; i++) {
+            for (j = 0; j < (kolom - 1); j++) {
+                matrixBaru[i][j] = matrix[i][j];
+            }
+        }
+        return matrixBaru;
+    }
+
+    public static void cramer (double matrix[][], double hasilCramer[]) {
+        int i, j, k, l;
+        int n = matrix.length;
+        double[][] mainMatrix = new double[n][n];
+
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                mainMatrix[i][j] = matrix[i][j];
+            }
+        }
+
+        double mainDet = DetByKofaktor(mainMatrix);
+        if (mainDet != 0) {
+            // mencari d1 d2 d3
+            for (i = 0; i < n; i++) {
+                double temp[][] = new double[n][matrix[0].length];
+                for(k = 0; k < n; k++) {
+                    for(l = 0; l < matrix[0].length; l++) {
+                        temp[k][l] = matrix[k][l];
+                    }
+                }
+                tukarKolom(temp, n, i, temp[0].length - 1);
+                double[][] subMatrix = hapusKolomAkhir(temp);
+                double detSubMatrix = DetByKofaktor(subMatrix);
+                hasilCramer[i] = detSubMatrix / mainDet;
+            }
+        } else { // determinan 0
+            System.out.println("Persamaan tidak bisa diselesaikan");
+        }
+    }
 }
