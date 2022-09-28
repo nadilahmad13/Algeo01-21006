@@ -3,9 +3,10 @@ import java.io.*;
 import java.util.*;
 
 public class Input_Matrix {
+    public static Scanner sc;
     public static double[][] MatrixKeyboardInput(){
         // get m rows and n colls
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.print("Masukkan jumlah baris (m): ");
         int m = sc.nextInt();
         System.out.print("Masukkan jumlah kolom (n): ");
@@ -19,8 +20,6 @@ public class Input_Matrix {
                 matrix[i][j] = sc.nextDouble();
             }
         }
-        
-        sc.close();
         return matrix;        
     }
 
