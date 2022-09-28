@@ -112,7 +112,7 @@ public class Matrix {
             determinan *= GaussCopy[i][i];
         }
 
-        return determinan/sum; 
+        return determinan/sum;
     }
 
     public static double[][] TransposeMatrix(double[][] matrix){

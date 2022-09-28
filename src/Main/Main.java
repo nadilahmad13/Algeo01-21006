@@ -1,5 +1,6 @@
 package Main;
 import Matrix.*;
+import Functions.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,9 +8,10 @@ public class Main {
             "Menu"
         );
         // read a matrix
-        double[][] matrix = Input_Matrix.MatrixFileInput();
+        double[][] matrix = Input_Matrix.MatrixKeyboardInput();
+        double[][] matrixx = Input_Matrix.MatrixKeyboardInput();
         // output the matrix
-        Matrix.outputMatrix(matrix);
+        Matrix.outputMatrix(matrixx);
         // det by kofaktor
         double det = Matrix.DetByGauss(matrix);
         System.out.println("Determinan = " + det);
@@ -17,5 +19,8 @@ public class Main {
         System.out.println("Transpose :");
         double[][] transpose = Matrix.TransposeMatrix(matrix);
         Matrix.outputMatrix(transpose);
+
+        //cramer
+
     }
 }
