@@ -14,6 +14,20 @@ public class Matrix {
         return matrix.length == matrix[0].length;
     }
 
+    // CreateIdentityMatrix
+    public static double[][] CreateIdentityMatrix(double[][] M, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    M[i][j] = 1;
+                } else {
+                    M[i][j] = 0;
+                }
+            }
+        }
+        return M;
+    }
+
     public static double DetByKofaktor(double[][] matrix){
         if (!IsSquare(matrix)){
             System.out.println("Matriks bukan persegi");
@@ -194,5 +208,31 @@ public class Matrix {
         } else { // determinan 0
             System.out.println("Persamaan tidak bisa diselesaikan");
         }
+    }
+
+    public static double[][] getMinor(double[][] matrix, int i, int j) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        double[][] minor = new double[n-1][m-1];
+        int p = 0;
+        int q = 0;
+        for (int k = 0; k < n; k++) {
+            for (int l = 0; l < m; l++) {
+                if (k != i && l != j) {
+                    minor[p][q++] = matrix[k][l];
+                    if (q % (m-1) == 0) {
+                        p++;
+                        q = 0;
+                    }
+                }
+            }
+        }
+        return minor;
+    }
+
+    public static double getCofactor(double[][] matrix, int i, int j) {
+        double[][] minor = getMinor(matrix, i, j);
+        double det = DetByKofaktor(minor);
+        return det;
     }
 }
