@@ -42,6 +42,8 @@ public class Inverse {
                 }
             }
         }
+
+        Output_Matrix.InverseToFile(MRes);
         return MRes;
     }
 
@@ -67,6 +69,9 @@ public class Inverse {
         // Transpose Matriks Adjoin
         MAdj = Matrix.TransposeMatrix(MAdj);
         Operations.Constant_Multiply(MAdj, 1/det);
+
+        // Write File
+        Output_Matrix.InverseToFile(MAdj);
         return MAdj;
     }
 }

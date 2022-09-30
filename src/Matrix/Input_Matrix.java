@@ -25,10 +25,9 @@ public class Input_Matrix {
 
     public static double[][] MatrixFileInput(){
         // scan a filename
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.print("Masukkan nama file: ");
         String filename = sc.nextLine();
-        sc.close();
 
         // create a path
         String path = "..\\test\\" + filename;
