@@ -235,4 +235,38 @@ public class Matrix {
         double det = DetByKofaktor(minor);
         return det;
     }
+
+    public static int zeroRowCounter(double[][] M){
+        int RowCount = 0;
+        int ZeroCount = 0;
+
+        int Row = M.length;
+        int Col = M[0].length;
+
+        for (int i = 0 ; i < Row ; i ++){
+            for (int j = 0 ; j < Col ; j++){
+                if (M[i][j] == 0){
+                    ZeroCount++;
+                }
+            }
+            if (ZeroCount == Col){
+                RowCount++;
+            }
+        }
+        return RowCount;
+    }
+
+    public static boolean zeroRowChecker(double[][] M, int i){
+        int j;
+        boolean zeroFlag;
+        j = 0;
+        zeroFlag = true;
+        while (zeroFlag && j < M[0].length - 1){
+            if (M[i][j] != 0){
+                zeroFlag = false;
+            }
+            j++;
+        }
+        return zeroFlag;
+    }
 }
