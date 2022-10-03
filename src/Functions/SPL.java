@@ -45,55 +45,34 @@ public class SPL {
         this.tidakAdaSolusi = false;
     }
 
-    public void menuSPL (int pilihan){
-        String[] ans = {""};
-        if (pilihan == 1){
-            ans = gaussElimination();
+    // public void menuSPL (int pilihan, String[] ans){
+    //     if (pilihan == 1){
+    //         ans = gaussElimination();
+    //     }
+    //     else if (pilihan == 2){
+    //         ans = gaussJordanElimination();
+    //     }
+    //     else if (pilihan == 3){
+    //         ans = cramer();
+    //     }
+    //     else if (pilihan == 4){
+    //         ans = SPLInverse();
+    //     }
+    //     else{
+    //         System.out.println("Pilihan tidak ada");
+    //     }
+    //     this.solusi = ans;
+    // }
+
+    public static void outputSolusi(String[] ans){
+        if (ans[0].equals("Tidak ada solusi")){
+            System.out.println(ans[0]);
         }
-        // else if (pilihan == 2){
-        //     ans = gaussJordan();
-        // }
-        // else if (pilihan == 3){
-        //     ans = cramer();
-        // }
-        // else if (pilihan == 4){
-        //     ans = inverseSPL();
-        // }
         else{
-            System.out.println("Pilihan tidak ada");
-        }
-        this.solusi = ans;
-    }
-
-    public String solusiOutput(){
-        String out = "";
-        if (satuSolusi){
-            for (int i = 0 ; i < this.solusi.length ; i++){
-                if (this.solusi.length-1 == i){
-                    out += "X" + (i+1) + " = " + this.solusi[i];
-                }
-                else{
-                    out += "X" + (i+1) + " = " + this.solusi[i] + "\n";
-                }
+            for (int i = 0 ; i < ans.length ; i++){
+                System.out.println("X" + (i+1) + " = " + ans[i]);
             }
         }
-
-        else if (banyakSolusi){
-            for (int i = 0 ; i < this.solusi.length ; i++){
-                if (this.solusi.length - 1 == i){
-                    out += "X" + (i+1) + " = " + this.solusi[i];
-                }
-                else{
-                    out += "X" + (i+1) + " = " + this.solusi[i] + "\n";
-                }
-            }
-        }
-
-        else if (tidakAdaSolusi){
-            out = this.solusi[0];
-        }
-
-        return out;
     }
 
     public String[] doubleToStringConverter(double[] arr){
@@ -265,6 +244,153 @@ public class SPL {
         }
         else if (this.banyakSolusi){
             return parameter(this.m);
+        }
+        else{
+            String[] ans = {"Tidak ada solusi"};
+            return ans;
+        }
+    }
+
+    public String[] gaussJordanElimination(){
+        int i,n;
+
+        n = this.m[0].length - 1;
+        double[] x = new double[n];
+
+        // Gauss Jordan Elimination
+        this.m = Operations.OBE_Tereduksi(this.m);
+
+        // Cek Solusi
+        int Row = this.m.length - 1;
+        int Col = this.m[0].length - 1;
+        if (this.m[Row][Col-1] != 0 && this.m[Row][Col] != 0 && (Row == Col -1)){
+            SPLsatuSolusi();
+        }
+        else {
+            SPLbanyakSolusi();
+        }
+
+        // Cek Jika Tidak ada Solusi
+        for (i = 0 ; i <= Row ; i++){
+            if (Matrix.zeroRowChecker(this.m, i) && this.m[i][Col] != 0){
+                SPLtidakAdaSolusi();
+            }
+        }
+
+        if (this.satuSolusi){
+            for (i = 0 ; i < n ; i++){
+                x[i] = this.m[i][n];
+                if(x[i] == 0.0){
+                    x[i] = 0.0;
+                }
+            }
+            return doubleToStringConverter(x);
+        }
+        else if (this.banyakSolusi){
+            return parameter(this.m);
+        }
+        else{
+            String[] ans = {"Tidak ada solusi"};
+            return ans;
+        }
+    }
+
+    public String[] cramer(){
+        int n, i, j;
+        n = this.m.length;
+        double[][] temp = new double[n][n];
+        double[] x = new double[n];
+        double[] detX = new double[n+1];
+
+        // Cek jika persamaan bisa diselesaikan dengan metode Cramer
+        if (this.m[0].length - 1 < n){
+            String[] ans = {"SPL tidak dapat diselesaikan menggunakan metode cramer"};
+            SPLtidakAdaSolusi();
+            return ans;
+        }
+
+        // Inisiasi matriks temp dengan n x n SPL
+        for (i = 0 ; i < n ; i++){
+            for (j = 0 ; j < n ; j++){
+                temp[i][j] = this.m[i][j];
+            }
+        }
+        detX[0] = Matrix.DetByKofaktor(this.m);
+
+        // Cek solusi
+        int Row = this.m.length - 1;
+        int Col = this.m[0].length - 1;
+
+        if (detX[0] == 0 || (Row != Col -1)){
+            SPLtidakAdaSolusi();
+        }
+        else{
+            SPLsatuSolusi();
+        }
+
+        if (this.satuSolusi){
+            // Mengganti setiap kolom dan memasukkan determinan matriks baru ke detX
+            for (i = 0 ; i < n ; i++){
+                for (j = 0 ; j < n ; j++){
+                    temp[j][i] = this.m[j][n];
+                    if (i > 0){
+                        temp[j][i-1] = this.m[j][i-1];
+                    }
+                }
+                detX[i+1] = Matrix.DetByKofaktor(temp);
+            }
+
+            // Mencari nilai x dengan determinan yang telah didapat
+            for (i = 0 ; i < n ; i++){
+                x[i] = detX[i+1]/detX[0];
+                if (x[i] == 0.0){
+                    x[i] = 0.0;
+                }
+            }
+            return doubleToStringConverter(x);
+        }
+        else{
+            String[] ans = {"Tidak ada solusi / Tidak dapat menggunakan metode cramer"};
+            return ans;
+        }
+    }
+
+    public String[] SPLInverse(){
+        // Inisiasi variabel
+        int Row = this.m.length;
+        int Col = this.m[0].length;
+        double[] Res = new double[Row];
+        double[][] MatTemp = new double[Row][Col-1];
+
+        // Membuat Matrix Baru
+        double[][] MatBaru = Operations.Matrix_Right_Cutter(this.m);
+
+        // Membuat Matrix Temp
+        for (int i = 0 ; i < Row ; i++){
+            for (int j = 0 ; j < Col-1 ; j++){
+                MatTemp[i][j] = this.m[i][j];
+            }
+        }
+        // Cek Solusi
+        if (!Matrix.IsSquare(MatTemp) || Matrix.DetByKofaktor(MatTemp) == 0 || MatTemp.length != MatTemp[0].length){
+            SPLtidakAdaSolusi();
+        }
+        else{
+            SPLsatuSolusi();
+        }
+        Matrix.outputMatrix(MatTemp);
+        // Menghitung Solusi
+        if (this.satuSolusi){
+            // Matrix.outputMatrix(MatTemp);
+            double[][] MatRes = Operations.Matrix_Multiplier(Inverse.InverseByOBE(MatTemp), MatBaru);
+            Inverse.InverseByOBE(MatTemp);
+            for (int i = 0 ; i < Row ; i++){
+                Res[i] = MatRes[i][0];
+                if (Res[i] == 0.0){
+                    Res[i] = 0.0;
+                }
+            }
+            return doubleToStringConverter(Res);
         }
         else{
             String[] ans = {"Tidak ada solusi"};
