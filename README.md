@@ -38,7 +38,7 @@
 │
 ├───doc                             # Documentation
 ├───src                             # Source code
-│   ├───Algorithm                   # Function package
+│   ├───Functions                   # Function package
 │   │       Bicubic.java
 │   │       Interpolate.java
 │   │       Inverse.java
