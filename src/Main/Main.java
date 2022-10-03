@@ -6,11 +6,17 @@ public class Main {
     public static void main(String[] args) {
         double[][] M = Input_Matrix.MatrixFileInput();
         Matrix.outputMatrix(M);
-        System.out.println("SPL Gauss");
-        SPL spl = new SPL(M);
-        String[] ans = spl.gaussElimination();
-        for (int i = 0; i < ans.length; i++) {
-            System.out.println(ans[i]);
-        }
+        double res = Matrix.DetByKofaktor(M);
+        System.out.println(res);
+        Output_Matrix.DetToFile(res);
+        // double[][] FX = Input_Matrix.MatrixFileInput();
+        // Matrix.outputMatrix(FX);
+        // System.out.println("Regresi Linear Berganda");
+        // double[] FXRes = Functions.linearRegression.Regression(FX);
+        // System.out.println("Hasil Regresi Linear Berganda");
+        // linearRegression.RegressionOutput(FXRes);
+        // System.out.println("Hasil Prediksi");
+        // double[] x = {1,2,3};
+        // System.out.println(linearRegression.RegressionFX(FXRes, x));
     }
 }
