@@ -41,6 +41,30 @@ public class Output_Matrix {
         }
     }
 
+    public static void SPLToFile(String[] ans){
+        try{
+            CreateFile();
+            WR = new FileWriter(path);
+            Date date = new Date();
+            WR.write(dateFormat.format(date) + "\n");
+            WR.write("HASIL SPL\n");
+            if(ans[0].equals("Tidak ada solusi")){
+                WR.write(ans[0]);
+                WR.close();
+            }
+            else{
+                for (int i = 0; i < ans.length; i++){
+                    WR.write("X" + (i+1) + " = " + ans[i] + "\n");
+                }
+                WR.close();
+            }
+            System.out.println("Successfully wrote to the file.");
+        }
+        catch(IOException e){
+            System.out.println("Cannot write to file");
+        }
+    }
+
     public static void DetToFile(double res){
         try{
             String result = Double.toString(res);

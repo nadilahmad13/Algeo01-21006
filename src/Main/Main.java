@@ -48,6 +48,8 @@ public class Main {
                         System.out.println("Solusi SPL: ");
                         spl.outputSolusi(res);
                         printBatas();
+                        Output_Matrix.SPLToFile(res);
+                        printBatas();
                         enterToExit();
                         break;
                     }
@@ -62,6 +64,8 @@ public class Main {
                         res = spl.gaussJordanElimination();
                         System.out.println("Solusi SPL: ");
                         spl.outputSolusi(res);
+                        printBatas();
+                        Output_Matrix.SPLToFile(res);
                         printBatas();
                         enterToExit();
                         break;
@@ -78,6 +82,8 @@ public class Main {
                         System.out.println("Solusi SPL: ");
                         spl.outputSolusi(res);
                         printBatas();
+                        Output_Matrix.SPLToFile(res);
+                        printBatas();
                         enterToExit();
                         break;
                     }
@@ -92,6 +98,8 @@ public class Main {
                         res = spl.SPLInverse();
                         System.out.println("Solusi SPL: ");
                         spl.outputSolusi(res);
+                        printBatas();
+                        Output_Matrix.SPLToFile(res);
                         printBatas();
                         enterToExit();
                         break;
@@ -218,6 +226,8 @@ public class Main {
                 }
 
                 else if (pilihan == 5){
+                    clear();
+                    System.out.println("INTERPOLASI BICUBIC");
                     break;
                 }
 
@@ -248,6 +258,12 @@ public class Main {
 
                 else if(pilihan == 7){
                     System.exit(0);
+                }
+
+                else {
+                    System.out.println("Pilihan tidak tersedia");
+                    enterToExit();
+                    break;
                 }
             }
         }
