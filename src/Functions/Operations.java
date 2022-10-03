@@ -119,4 +119,31 @@ public class Operations {
             }
         }
     }
+
+    public static double[][] Matrix_Right_Cutter(double[][] Matriks){
+        double[][] ret = new double[Matriks.length][1];
+        int Col = Matriks[0].length;
+        for (int i = 0 ; i < Matriks.length ; i++){
+            ret[i][0] = Matriks[i][Col-1];
+        }
+        return ret;
+    }
+
+    public static double[][] Matrix_Multiplier (double[][] M1, double[][] M2){
+        int Row = M1.length;
+        int Col = M2[0].length;
+        int i, j, k;
+        double temp;
+        double[][] ret = new double[Row][Col];
+        for (i = 0 ; i < Row ; i++){
+            for (j = 0 ; j < Col ; j++){
+                temp = 0;
+                for (k = 0 ; k < M1[0].length ; k++){
+                    temp += M1[i][k] * M2[k][j];
+                }
+                ret[i][j] = temp;
+            }
+        }
+        return ret;
+    }
 }
