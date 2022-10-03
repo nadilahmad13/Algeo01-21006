@@ -20,8 +20,8 @@ public class Output_Matrix {
         }
         return result;
     }
-
-    public static void CreatePath(){
+    
+    public static void CreateFile(){
         String directory = System.getProperty("user.dir");
         directory = directory.substring(directory.lastIndexOf("\\")+1);
         if (directory.equals("bin")){
@@ -30,23 +30,34 @@ public class Output_Matrix {
         else{
             dir = "test\\result\\";
         }
-    }
 
-    public static void CreateFile(){
-        try{
-            CreatePath();
-            Date date = new Date();
-            File file = new File(dir + dateFormat.format(date) + ".txt");
-            if(!file.exists()){
-                file.createNewFile();
-            }
+        Date date = new Date();
+        File file = new File(dir + dateFormat.format(date) + ".txt");
+        try {
+            file.createNewFile();
             path = file.getAbsolutePath();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Cannot create file");
         }
     }
-    
+
+    public static void DetToFile(double res){
+        try{
+            String result = Double.toString(res);
+            CreateFile();
+            Date date = new Date();
+            WR = new FileWriter(path);
+            WR.write(dateFormat.format(date) + "\n");
+            WR.write("Determinan Matriks : \n");
+            WR.write(result);
+            WR.close();
+            System.out.println("Successfully wrote to the file.");
+        }
+        catch (IOException e){
+            System.out.println("Determinant File error occured.");   
+        }
+    }
+
     public static void InverseToFile(double[][] M){
         try{
             String MatrixString = MatrixToString(M);
@@ -55,7 +66,7 @@ public class Output_Matrix {
             path = dir + dateFormat.format(date) + ".txt";
             WR = new FileWriter(path);
             WR.write(dateFormat.format(date) + "\n");
-            WR.write("Matriks Invers: ");
+            WR.write("Matriks Invers: \n");
             WR.write(MatrixString);
             WR.close();
             System.out.println("Successfully wrote to the file.");
