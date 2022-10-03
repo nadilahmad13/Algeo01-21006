@@ -150,6 +150,102 @@ public class Main {
                     }
                 }
 
+                else if (pilihan == 3){
+                    clear();
+                    System.out.println("MATRIKS BALIKAN");
+                    printBatas();
+                    System.out.println("1. Metode reduksi baris");
+                    System.out.println("2. Metode ekspansi kofaktor");
+                    System.out.print("Masukkan pilihan metode: ");
+                    int pilih_inv = sc.nextInt();
+
+                    if (pilih_inv == 1){
+                        clear();
+                        System.out.println("METODE REDUKSI BARIS");
+                        printBatas();
+                        M = getMatrix();
+                        printBatas();
+                        double[][] inv = Inverse.InverseByOBE(M);
+                        System.out.println("Matriks balikan: ");
+                        Matrix.outputMatrix(inv);
+                        Output_Matrix.InverseToFile(inv);
+                        printBatas();
+                        enterToExit();
+                        break;
+                    }
+
+                    else if (pilih_inv == 2){
+                        clear();
+                        System.out.println("METODE EKSPANSI KOFAKTOR");
+                        printBatas();
+                        M = getMatrix();
+                        printBatas();
+                        double[][] inv = Inverse.InverseByCofactor(M);
+                        System.out.println("Matriks balikan: ");
+                        Matrix.outputMatrix(inv);
+                        Output_Matrix.InverseToFile(inv);
+                        printBatas();
+                        enterToExit();
+                        break;
+                    }
+
+                    else {
+                        System.out.println("Pilihan tidak tersedia");
+                        enterToExit();
+                        break;
+                    }
+                }
+
+                else if (pilihan == 4){
+                    clear();
+                    System.out.println("INTERPOLASI POLINOM");
+                    printBatas();
+                    M = getMatrix();
+                    printBatas();
+                    double[] res = Interpolate.InterpolateFunction(M);
+                    System.out.println("Polinom interpolasi: ");
+                    Interpolate.OutputInterpolation(res);
+                    printBatas();
+                    // input x
+                    System.out.print("Masukkan nilai x: ");
+                    double x = sc.nextDouble();
+                    double y = Interpolate.InterpolateFX(res, x);
+                    System.out.println("F(" + x + ") = " + y);
+                    printBatas();
+                    Output_Matrix.InterpolateToFile(res, x, y);
+                    enterToExit();  
+                    break;
+                }
+
+                else if (pilihan == 5){
+                    break;
+                }
+
+                else if (pilihan == 6){
+                    clear();
+                    System.out.println("REGRESI LINEAR BERGANDA");
+                    printBatas();
+                    M = getMatrix();
+                    printBatas();
+                    double[] res = linearRegression.Regression(M);
+                    System.out.println("Persamaan regresi: ");
+                    String ResString = linearRegression.RegressionOutput(res);
+                    printBatas();
+                    System.out.print("Masukkan nilai x1: ");
+                    double x1 = sc.nextDouble();
+                    System.out.print("Masukkan nilai x2: ");
+                    double x2 = sc.nextDouble();
+                    System.out.print("Masukkan nilai x3: ");
+                    double x3 = sc.nextDouble();
+                    double[] x = new double[]{x1, x2, x3};
+                    double y = linearRegression.RegressionFX(res, x);
+                    System.out.println("F(" + x1 + ", " + x2 + ", " + x3 + ") = " + y);
+                    printBatas();
+                    Output_Matrix.RegressionToFile(ResString, x, y);
+                    enterToExit();
+                    break;
+                }
+
                 else if(pilihan == 7){
                     System.exit(0);
                 }
