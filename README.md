@@ -84,5 +84,7 @@ Untuk pindah ke folder bin : `cd bin`
 
 `java Main.Main`
 
+3. Pastikan terdapat folder `result` di dalam folder `test` agar hasil perhitungan dapat di-save 
+
 ## Dokum
 ![](doc/nunjuk_mat.jpg)
