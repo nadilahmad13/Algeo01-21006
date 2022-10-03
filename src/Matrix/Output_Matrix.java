@@ -141,4 +141,20 @@ public class Output_Matrix {
             System.out.println("Interpolate File error occured.");
         }
     }
+
+    public static void BicubicToFile(double x, double y, double z){
+        try{
+            CreateFile();
+            Date date = new Date();
+            path = dir + dateFormat.format(date) + ".txt";
+            WR = new FileWriter(path);
+            WR.write(dateFormat.format(date) + "\n");
+            WR.write("Hasil Interpolasi F(" + x + ", " + y + ") = " + z);
+            WR.close();
+            System.out.println("Successfully wrote to the file.");
+        }
+        catch (IOException e){
+            System.out.println("Interpolate File error occured.");
+        }
+    }
 }

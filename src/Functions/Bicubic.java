@@ -1,6 +1,7 @@
 package Functions;
 import java.lang.Math;
 import java.util.*;
+import Matrix.*;
 
 public class Bicubic {
     public static Scanner sc;
@@ -57,6 +58,7 @@ public class Bicubic {
         }
 
         System.out.printf("f(%.4f, %.4f) = %.4f\n", X, Y, Formula);
+        Output_Matrix.BicubicToFile(X, Y, Formula);
         return matrix16x16;
     }
 
