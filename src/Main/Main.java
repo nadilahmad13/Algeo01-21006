@@ -1,11 +1,6 @@
 package Main;
 import Matrix.*;
 import Functions.*;
-import java.util.*;
-
-public class Main {
-    public static Scanner sc;
-    public static void main(String[] args) {
         while (true){
             double[][] M;
             clear();
@@ -308,5 +303,14 @@ public class Main {
 
     public static void printBatas(){
         System.out.println("======================================");
+        System.out.println("MENU");
+        System.out.println("1. Sistem Persamaan Linier");
+        System.out.println("2. Determinan");
+        System.out.println("3. Matriks balikan");
+        System.out.println("4. Interpolasi Polinom");
+        System.out.println("5. Interpolasi Bicubic");
+        System.out.println("6. Regresi Linier Berganda");
+        System.out.println("7. Keluar");
+        
     }
 }
