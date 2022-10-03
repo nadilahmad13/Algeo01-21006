@@ -5,7 +5,6 @@ import java.util.*;
 public class Bicubic {
     public static Scanner sc;
     public static double[][] a;
-    public static double[][] a4x4;
 
     public static double[][] bicubicInterpolation (double[][] matrix, int x, int y){
         int i,j;
@@ -33,14 +32,14 @@ public class Bicubic {
             }
         }    
 
-        /* mengubah matrix 4x4 ke 16x1 */
+        // mengubah matrix 4x4 ke 16x1
         double[][] matrix16x1 = new double[16][1];
         matrix16x1 = reshape(matrix4x4, 16, 1);
 
-        double[][] invmatrix16 = Inverse.InverseByOBE(matrix16x16);
-        double[][] inverse = Operations.Matrix_Multiplier(invmatrix16, matrix16x1);
+        double[][] invmatrix16x16 = Inverse.InverseByOBE(matrix16x16);
+        double[][] multiplication = Operations.Matrix_Multiplier(invmatrix16x16, matrix16x1);
 
-        inverse = reshape(inverse, 4, 4);
+        a = reshape(multiplication, 4, 4);
 
         float Formula = 0;
         row = 0;
@@ -53,12 +52,11 @@ public class Bicubic {
 
         for (j = 0; j < 4; j++) {
             for (i = 0; i < 4; i++) {
-                Formula += inverse[i][j] * ((float) Math.pow(X, i) * (float) Math.pow(Y, j));
+                Formula += a[i][j] * ((float) Math.pow(X, j) * (float) Math.pow(Y, i));
             }
         }
-        
-        System.out.printf("f(%.4f, %.4f) = %.4f\n", X, Y, Formula);
 
+        System.out.printf("f(%.4f, %.4f) = %.4f\n", X, Y, Formula);
         return matrix16x16;
     }
 
