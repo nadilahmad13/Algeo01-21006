@@ -29,11 +29,12 @@ public class Matrix {
     }
 
     public static double DetByKofaktor(double[][] matrix){
-        if (!IsSquare(matrix)){
+        double [][] MCopy = CopyMatrix(matrix); 
+        if (!IsSquare(MCopy)){
             System.out.println("Matriks bukan persegi");
             return 0;
         }
-        int n = matrix.length;
+        int n = MCopy.length;
         int det = 1;
         int co = 1;
         int idx;
@@ -41,7 +42,7 @@ public class Matrix {
         double tmpRow[] = new double[n];
         for (int i = 0 ; i < n ; i++){
             idx = i;
-            while(idx < n && matrix[idx][i] == 0){
+            while(idx < n && MCopy[idx][i] == 0){
                 idx++;
             }
             if (idx == n){
@@ -50,26 +51,26 @@ public class Matrix {
             }
             if (idx != i){
                 for (int j = 0 ; j < n ; j++){
-                    double temp = matrix[i][j];
-                    matrix[i][j] = matrix[idx][j];
-                    matrix[idx][j] = temp;
+                    double temp = MCopy[i][j];
+                    MCopy[i][j] = MCopy[idx][j];
+                    MCopy[idx][j] = temp;
                 }
                 det *= -1;
             }
             for (int j = 0 ; j < n ; j++){
-                tmpRow[j] = matrix[i][j];
+                tmpRow[j] = MCopy[i][j];
             }
             for (int j = i+1 ; j < n ; j++){
                 temp1 = tmpRow[i];
-                temp2 = matrix[j][i];
+                temp2 = MCopy[j][i];
                 for (int k = 0 ; k < n ; k++){
-                    matrix[j][k] = (temp1 * matrix[j][k]) - (temp2 * tmpRow[k]);
+                    MCopy[j][k] = (temp1 * MCopy[j][k]) - (temp2 * tmpRow[k]);
                 }
                 co *= temp1;
             }
         }
         for (int i = 0 ; i < n ; i++){
-            det *= matrix[i][i];
+            det *= MCopy[i][i];
         }
         return det/co;
     }
@@ -153,61 +154,6 @@ public class Matrix {
             }
         }
         return copy;
-    }
-
-    public static void tukarKolom (double matrix[][], int baris, int i, int j) {
-        int k;
-
-        for (k = 0; k < baris; k++) {
-            double temp = matrix[k][i];
-            matrix[k][i] = matrix[k][j];
-            matrix[k][j] = temp;
-        }
-    }	
-
-    public static double[][] hapusKolomAkhir (double matrix[][]) {
-        int i, j;
-        int baris = matrix.length;
-        int kolom = matrix[0].length;
-        double [][] matrixBaru = new double[baris][kolom-1];
-    
-        for (i = 0; i < baris; i++) {
-            for (j = 0; j < (kolom - 1); j++) {
-                matrixBaru[i][j] = matrix[i][j];
-            }
-        }
-        return matrixBaru;
-    }
-
-    public static void cramer (double matrix[][], double hasilCramer[]) {
-        int i, j, k, l;
-        int n = matrix.length;
-        double[][] mainMatrix = new double[n][n];
-
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
-                mainMatrix[i][j] = matrix[i][j];
-            }
-        }
-
-        double mainDet = DetByKofaktor(mainMatrix);
-        if (mainDet != 0) {
-            // mencari d1 d2 d3
-            for (i = 0; i < n; i++) {
-                double temp[][] = new double[n][matrix[0].length];
-                for(k = 0; k < n; k++) {
-                    for(l = 0; l < matrix[0].length; l++) {
-                        temp[k][l] = matrix[k][l];
-                    }
-                }
-                tukarKolom(temp, n, i, temp[0].length - 1);
-                double[][] subMatrix = hapusKolomAkhir(temp);
-                double detSubMatrix = DetByKofaktor(subMatrix);
-                hasilCramer[i] = detSubMatrix / mainDet;
-            }
-        } else { // determinan 0
-            System.out.println("Persamaan tidak bisa diselesaikan");
-        }
     }
 
     public static double[][] getMinor(double[][] matrix, int i, int j) {
