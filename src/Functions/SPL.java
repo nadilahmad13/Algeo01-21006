@@ -45,26 +45,26 @@ public class SPL {
         this.tidakAdaSolusi = false;
     }
 
-    // public void menuSPL (int pilihan, String[] ans){
-    //     if (pilihan == 1){
-    //         ans = gaussElimination();
-    //     }
-    //     else if (pilihan == 2){
-    //         ans = gaussJordanElimination();
-    //     }
-    //     else if (pilihan == 3){
-    //         ans = cramer();
-    //     }
-    //     else if (pilihan == 4){
-    //         ans = SPLInverse();
-    //     }
-    //     else{
-    //         System.out.println("Pilihan tidak ada");
-    //     }
-    //     this.solusi = ans;
-    // }
+    public void menuSPL (int pilihan, String[] ans){
+        if (pilihan == 1){
+            ans = gaussElimination();
+        }
+        else if (pilihan == 2){
+            ans = gaussJordanElimination();
+        }
+        else if (pilihan == 3){
+            ans = cramer();
+        }
+        else if (pilihan == 4){
+            ans = SPLInverse();
+        }
+        else{
+            System.out.println("Pilihan tidak ada");
+        }
+        this.solusi = ans;
+    }
 
-    public static void outputSolusi(String[] ans){
+    public void outputSolusi(String[] ans){
         if (ans[0].equals("Tidak ada solusi")){
             System.out.println(ans[0]);
         }

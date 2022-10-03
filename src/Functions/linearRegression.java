@@ -62,7 +62,7 @@ public class linearRegression {
         return res;
     }
 
-    public static void RegressionOutput(double[] M){
+    public static String RegressionOutput(double[] M){
         int i;
         String out = "";
         String plus = " + ";
@@ -92,5 +92,6 @@ public class linearRegression {
             }
         }
         System.out.println(out);
+        return out;
     }
 }

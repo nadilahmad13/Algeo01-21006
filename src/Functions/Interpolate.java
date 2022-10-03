@@ -43,4 +43,23 @@ public class Interpolate {
 
         return result;
     }
+
+    public static void OutputInterpolation(double[] matrix){
+        int n,i;
+        n = matrix.length;
+
+        System.out.print("P(x) = ");
+        for (i = 0 ; i < n ; i++){
+            if (i == 0){
+                System.out.print(matrix[i]);
+            }
+            else if (i == 1){
+                System.out.print(" + " + matrix[i] + "x");
+            }
+            else{
+                System.out.print(" + " + matrix[i] + "x^" + i);
+            }
+        }
+        System.out.println();
+    }
 }
