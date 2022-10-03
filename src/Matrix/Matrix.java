@@ -1,6 +1,9 @@
 package Matrix;
 
+import java.util.Scanner;
+
 public class Matrix {
+    public static Scanner sc;
     public static void outputMatrix(double[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -214,5 +217,27 @@ public class Matrix {
             j++;
         }
         return zeroFlag;
+    }
+
+    public static double[][] CreateHilbertMatrix(){
+        // scan n
+        sc = new Scanner(System.in);
+        System.out.print("Masukkan Ordo Matriks Hilbert : ");
+        int n = sc.nextInt();
+        double[][] HilbertMatrix = new double[n][n+1];
+        for (int i = 0 ; i < n ; i++){
+            for (int j = 0 ; j < n ; j++){
+                HilbertMatrix[i][j] = 1.0 / (i + j + 1);
+            }
+        }
+        for (int i = 0 ; i < n ; i++){
+            if (i == 0){
+                HilbertMatrix[i][n] = 1;
+            } else {
+                HilbertMatrix[i][n] = 0;
+            }
+        }
+        
+        return HilbertMatrix;
     }
 }

@@ -211,10 +211,11 @@ public class Main {
                     M = getMatrix();
                     printBatas();
                     double[] res = Interpolate.InterpolateFunction(M);
+                    printBatas();
                     System.out.println("Polinom interpolasi: ");
+                    printBatas();
                     Interpolate.OutputInterpolation(res);
                     printBatas();
-                    // input x
                     System.out.print("Masukkan nilai x: ");
                     double x = sc.nextDouble();
                     double y = Interpolate.InterpolateFX(res, x);
@@ -232,6 +233,8 @@ public class Main {
                     M = getMatrix();
                     printBatas();
                     double[][] res = Bicubic.bicubicInterpolation(M,0,0);
+                    System.out.println("Matriks hasil interpolasi: ");
+                    Matrix.outputMatrix(res);
                     printBatas();
                     enterToExit();
                     break;
@@ -280,6 +283,7 @@ public class Main {
         System.out.println("Menu Input Matriks");
         System.out.println("1. Input Matriks dari keyboard");
         System.out.println("2. Input Matriks dari file");
+        System.out.println("3. Matrix Hilbert");
 
         sc = new Scanner(System.in);
         System.out.print("Masukkan pilihan menu: ");
@@ -291,6 +295,9 @@ public class Main {
                 break;
             } else if (pilihan_matrix == 2){
                 M = Input_Matrix.MatrixFileInput();
+                break;
+            } else if (pilihan_matrix == 3){
+                M = Matrix.CreateHilbertMatrix();
                 break;
             } else {
                 System.out.println("Input tidak valid");
