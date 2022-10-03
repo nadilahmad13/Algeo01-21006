@@ -75,4 +75,46 @@ public class Output_Matrix {
             System.out.println("Inverse File error occured.");
         }
     }
+
+    public static void RegressionToFile(String res, double[] X, double regres){
+        try{
+            CreateFile();
+            Date date = new Date();
+            path = dir + dateFormat.format(date) + ".txt";
+            WR = new FileWriter(path);
+            WR.write(dateFormat.format(date) + "\n");
+            WR.write("Hasil Interpolasi: \n");
+            WR.write(res);
+            WR.write("\nNilai X: \n");
+            for (int i = 0; i < X.length; i++){
+                WR.write("X" + (i+1) + " = " + X[i] + " \n");
+            }
+            WR.write("Hasil Regresi : " + regres);
+            WR.close();
+            System.out.println("Successfully wrote to the file.");
+        }
+        catch (IOException e){
+            System.out.println("Interpolate File error occured.");
+        }
+    }
+
+    public static void InterpolateToFile(double[] res, double x, double y){
+        try{
+            CreateFile();
+            Date date = new Date();
+            path = dir + dateFormat.format(date) + ".txt";
+            WR = new FileWriter(path);
+            WR.write(dateFormat.format(date) + "\n");
+            WR.write("Hasil Interpolasi: \n");
+            for (int i = 0; i < res.length; i++){
+                WR.write("a" + i + " = " + res[i] + " \n");
+            }
+            WR.write("Hasil Interpolasi F(" + x + ") = " + y);
+            WR.close();
+            System.out.println("Successfully wrote to the file.");
+        }
+        catch (IOException e){
+            System.out.println("Interpolate File error occured.");
+        }
+    }
 }
