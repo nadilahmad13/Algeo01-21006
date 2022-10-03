@@ -15,3 +15,6 @@
 2. Di folder bin :
 
 `java Main.Main`
+
+## Dokum
+![](doc/nunjuk_mat.jpg)
